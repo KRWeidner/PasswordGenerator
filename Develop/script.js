@@ -45,12 +45,12 @@ function generatePassword() {
     passwordOptions.push(...lowerAlphabet);
     passwordOptions.push(...upperAlphabet);
   }
-  //convert includeNumbers input here to uppercase for comparison in case user entered lowercase letter
-  if (passwordRequirements.includeNumbers.toUpperCase() === "Y") {
+  //if user said to include numbers and/or special chars, add those chars to passwordOptions array
+  if (passwordRequirements.includeNumbers === "Y") {
     passwordOptions.push(...numbers);
   }
 
-  if (passwordRequirements.includeSpecialChars.toUpperCase() === "Y") {
+  if (passwordRequirements.includeSpecialChars === "Y") {
     passwordOptions.push(...specialChars);
   }
 
@@ -84,22 +84,22 @@ function promptInputRequirements() {
 
   //check letter case for password. User must enter 1 character and that character must be U, L, or M
   var caseSelection = window.prompt("Should password contain all uppercase, lowercase or mixed case? Please enter U, L, or M to make your choice:");
-  while (caseSelection.length != 1 && (caseSelection !== "U" || caseSelection !== "L" || caseSelection !== "M")) {
+  while (caseSelection.length != 1 || (caseSelection != "U" && caseSelection != "L" && caseSelection != "M")) {
     caseSelection = window.prompt("Input must be one letter long and either U (uppercase), L (lowercase), or M (mixed case) must be entered: ");
   }
   passwordRequirements.passwordCase = caseSelection;
 
   //check if password should contain numbers. User must enter Y or N
   var includeNumbers = window.prompt("Should password contain numeric values? Enter Y or N:");
-  while (caseSelection.length != 1 && (caseSelection !== "Y" || caseSelection !== "N")) {
-    includeNumbers = window.prompt("Input must be one letter long and either U (uppercase), L (lowercase), or M (mixed case) must be entered: ");
+  while (includeNumbers.length != 1 || (includeNumbers != "Y" && includeNumbers != "N")) {
+    includeNumbers = window.prompt("Input must be one letter long and either Y or N must be entered: ");
   }
   passwordRequirements.includeNumbers = includeNumbers;
 
   //check if password should contain special characters. User must enter Y or N
   var includeSpecialChars = window.prompt("Should password contain special charcters? Please enter Y or N:");
-  while (caseSelection.length != 1 && (caseSelection !== "Y" || caseSelection !== "N")) {
-    includeSpecialChars = window.prompt("Input must be one letter long and either U (uppercase), L (lowercase), or M (mixed case) must be entered: ");
+  while (includeSpecialChars.length != 1 || (includeSpecialChars != "Y" && includeSpecialChars != "N")) {
+    includeSpecialChars = window.prompt("Input must be one letter long and either Y or N must be entered: ");
   }
   passwordRequirements.includeSpecialChars = includeSpecialChars;
 }
